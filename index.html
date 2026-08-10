@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Borsa Hesap Makinesi</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/components.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="logo">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+                <span>BorsaCalc</span>
+            </div>
+            <div class="header-actions">
+                <div class="shortcut-hint"><span class="key">Tab</span> ile gezin</div>
+                <div class="shortcut-hint"><span class="key">Alt</span>+<span class="key">Sayı</span> ile sekme değiştir</div>
+            </div>
+        </header>
+
+        <!-- Navigation Tabs -->
+        <nav class="tabs">
+            <button class="tab-btn active" data-target="tab-ortalama" accesskey="1">
+                <span>1. Ortalama Maliyet</span>
+                <small>Alt+1</small>
+            </button>
+            <button class="tab-btn" data-target="tab-simulator" accesskey="2">
+                <span>2. Anlık Simülatör</span>
+                <small>Alt+2</small>
+            </button>
+            <button class="tab-btn" data-target="tab-planlayici" accesskey="3">
+                <span>3. İşlem Planlayıcı</span>
+                <small>Alt+3</small>
+            </button>
+            <button class="tab-btn" data-target="tab-komisyon" accesskey="4">
+                <span>4. Komisyon & Başa Baş</span>
+                <small>Alt+4</small>
+            </button>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main class="content-area">
+            
+            <!-- TAB 1: Ortalama Maliyet -->
+            <section id="tab-ortalama" class="tab-pane active">
+                <div class="grid-layout">
+                    <div class="input-panel card">
+                        <h2>Alım İşlemleri</h2>
+                        <div id="alim-listesi" class="alim-listesi">
+                            <div class="alim-satir">
+                                <div class="form-group">
+                                    <label>Miktar (Lot - Tam Sayı)</label>
+                                    <input type="number" class="input-miktar" min="1" step="1" placeholder="Örn: 100">
+                                </div>
+                                <div class="form-group">
+                                    <label>Fiyat</label>
+                                    <input type="number" class="input-fiyat" min="0" step="any" placeholder="Örn: 45.50">
+                                </div>
+                                <div class="form-group">
+                                    <label>Alış Tutarı</label>
+                                    <input type="text" class="input-tutar" readonly placeholder="0.00" style="background: transparent; border: 1px dashed var(--border); color: var(--text-secondary); cursor: default;">
+                                </div>
+                                <button class="btn-icon btn-remove" tabindex="-1" title="Sil" style="margin-bottom: 6px;">×</button>
+                            </div>
+                        </div>
+                        <button id="btn-add-alim" class="btn btn-secondary mt-15">
+                            + Yeni Alım Ekle (Ctrl+E)
+                        </button>
+                    </div>
+                    
+                    <div class="result-panel">
+                        <div class="result-card primary-result">
+                            <div class="result-title">Ortalama Maliyet</div>
+                            <div class="result-value" id="res-ortalama-fiyat">0.00</div>
+                        </div>
+                        <div class="result-card">
+                            <div class="result-title">Toplam Lot</div>
+                            <div class="result-value" id="res-toplam-lot">0</div>
+                        </div>
+                        <div class="result-card">
+                            <div class="result-title">Toplam Yatırım Tutarı</div>
+                            <div class="result-value" id="res-toplam-tutar">0.00</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 2: Anlık Simülatör -->
+            <section id="tab-simulator" class="tab-pane">
+                <div class="grid-layout">
+                    <div class="input-panel card">
+                        <h2>Fiyat & Yüzde Simülatörü</h2>
+                        <p class="section-subtitle">O anki fiyata ve yüzdesine göre, hedef fiyattaki kazanç/kayıp oranını dinamik olarak hesaplar.</p>
+                        
+                        <div class="form-row highlight-box" style="border-color: var(--border);">
+                            <div class="form-group">
+                                <label>Şu Anki Fiyat</label>
+                                <input type="number" id="sim-referans" min="0" step="any" placeholder="Örn: 2.88">
+                            </div>
+                            <div class="form-group">
+                                <label>Şu Anki Günlük % Değişim</label>
+                                <input type="number" id="sim-referans-yuzde" step="any" placeholder="Örn: -5.0" class="color-dynamic">
+                            </div>
+                        </div>
+                        
+                        <div class="divider"></div>
+                        <h3 class="section-subtitle">Hedefler (Birini değiştirin, diğeri hesaplansın)</h3>
+                        
+                        <div class="form-row two-way-group highlight-box">
+                            <div class="form-group">
+                                <label>Hedef Fiyat</label>
+                                <input type="number" id="sim-hedef-fiyat" step="any" placeholder="Örn: 3.12">
+                            </div>
+                            <div class="form-group">
+                                <label>Hedef Günlük % Değişim</label>
+                                <input type="number" id="sim-hedef-yuzde" step="any" placeholder="Örn: +3.0" class="color-dynamic">
+                            </div>
+                        </div>
+
+                        <div class="divider"></div>
+                        <h3 class="section-subtitle">Portföy Etkisi (Opsiyonel)</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Sizdeki Maliyet Fiyatı</label>
+                                <input type="number" id="sim-maliyet" min="0" step="any" placeholder="0.00">
+                            </div>
+                            <div class="form-group">
+                                <label>Miktar (Lot - Tam Sayı)</label>
+                                <input type="number" id="sim-lot" min="0" step="1" placeholder="0">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="result-panel">
+                        <div class="result-card primary-result">
+                            <div class="result-title">Hedef Fiyattaki Anlık Kar/Zarar Durumu</div>
+                            <div class="result-value" id="res-sim-kar-zarar">0.00</div>
+                            <div class="result-sub" id="res-sim-kar-yuzde">%0.00</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 3: İşlem Planlayıcı -->
+            <section id="tab-planlayici" class="tab-pane">
+                <div class="grid-layout">
+                    <div class="input-panel card">
+                        <h2>İşlem & Kar Planlayıcı</h2>
+                        
+                        <div class="market-selector mb-20" id="sermaye-type-selector">
+                            <button class="market-btn active" data-type="tutar">Tutar (Sermaye) Girdim</button>
+                            <button class="market-btn" data-type="lot">Lot Girdim</button>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Alış Fiyatı</label>
+                                <input type="number" id="plan-alis" min="0" step="any" placeholder="0.00">
+                            </div>
+                            <div class="form-group">
+                                <label id="plan-sermaye-label">Tutar / Sermaye</label>
+                                <input type="number" id="plan-sermaye" min="0" step="any" placeholder="Örn: 5000">
+                            </div>
+                        </div>
+
+                        <!-- Komisyon & Kur Seçici (Planlayıcı) -->
+                        <div class="market-selector mt-15" id="plan-market-selector">
+                            <button class="market-btn active" data-market="yok">Komisyon Yok</button>
+                            <button class="market-btn" data-market="bist">BIST</button>
+                            <button class="market-btn" data-market="nasdaq">NASDAQ</button>
+                        </div>
+
+                        <!-- BIST Alanı -->
+                        <div id="plan-bist-fields" class="mt-15 highlight-box" style="display: none; padding: 10px;">
+                            <div class="form-group">
+                                <label>BIST Komisyonu (Binde)</label>
+                                <input type="number" id="plan-bist-komisyon" min="0" step="any" placeholder="Örn: 2">
+                            </div>
+                        </div>
+
+                        <!-- NASDAQ Alanı -->
+                        <div id="plan-nasdaq-fields" class="mt-15 highlight-box" style="display: none; padding: 15px;">
+                            <div class="alert-info mb-20" style="margin-top:0;">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                                <span>Hedef kar hesaplamaları vergisiz NET DOLAR üzerinden yapılır. Vergi kesintisi bilgi amaçlı TL sonuçlarına yansıtılır.</span>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Dolar Kuru (USD/TRY)</label>
+                                    <input type="number" id="plan-nasdaq-kur" min="0" step="any" placeholder="Örn: 35.50">
+                                </div>
+                            </div>
+                            
+                            <div class="form-group mt-15">
+                                <label>Türkiye Gelir Vergisi Dilimi (%)</label>
+                                <input type="number" id="plan-nasdaq-vergi" min="0" max="40" step="any" placeholder="Örn: 15" value="15">
+                            </div>
+                        </div>
+
+                        <div class="divider"></div>
+                        <h3 class="section-subtitle">İki Yönlü Planlama (Birini yazın, diğerleri hesaplansın)</h3>
+                        <div class="form-row highlight-box">
+                            <div class="form-group">
+                                <label>Satış Fiyatı</label>
+                                <input type="number" id="plan-satis" min="0" step="any" placeholder="0.00">
+                            </div>
+                            <div class="form-group profit-group">
+                                <label>Hedef Net Kar (%)</label>
+                                <input type="number" id="plan-kar-yuzde" step="any" placeholder="Örn: 2.0" class="color-dynamic">
+                            </div>
+                        </div>
+                        <div class="form-row highlight-box" style="margin-top: 15px;">
+                            <div class="form-group profit-group">
+                                <label id="plan-kar-tutar-label">Hedef Net Kar (Tutar)</label>
+                                <input type="number" id="plan-kar-tutar" step="any" placeholder="Örn: 1000" class="color-dynamic">
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="result-panel">
+                        <div class="result-card">
+                            <div class="result-title">Alınan Adet (Lot)</div>
+                            <div class="result-value" id="res-plan-lot">0</div>
+                        </div>
+                        <div class="result-card" id="card-plan-kullanilan">
+                            <div class="result-title">Kullanılan Tutar (Net Alış)</div>
+                            <div class="result-value" id="res-plan-kullanilan">0.00</div>
+                            <div class="result-sub" id="res-plan-kullanilan-tl" style="display:none; color: var(--text-primary); margin-top: 5px; font-weight: 500;">TL: 0.00 ₺</div>
+                            <div class="result-sub" id="res-plan-artan-container" style="margin-top: 5px;">Artan Bakiye: <span id="res-plan-artan">0.00</span></div>
+                        </div>
+                        
+                        <div class="result-card danger-card" id="card-plan-komisyon" style="display: none;">
+                            <div class="result-title">Ödenen Komisyon (Alış + Satış)</div>
+                            <div class="result-value danger" id="res-plan-komisyon-tutar">0.00</div>
+                        </div>
+                        
+                        <div class="result-card danger-card" id="card-plan-vergi" style="display: none; border-color: rgba(246, 70, 93, 0.4);">
+                            <div class="result-title">Ödenecek Gelir Vergisi (Sadece Kâr Üzerinden)</div>
+                            <div class="result-value danger" id="res-plan-vergi-tutar">0.00 ₺</div>
+                        </div>
+                        
+                        <div class="result-card primary-result">
+                            <div class="result-title">Net Kâr / Zarar</div>
+                            <div class="result-value" id="res-plan-kar">0.00</div>
+                            <div class="result-sub" id="res-plan-kar-tl" style="display:none; color: var(--text-primary); margin-top: 5px; font-weight: 500; font-size: 16px;">TL: 0.00 ₺</div>
+                        </div>
+                        
+                        <div class="result-card">
+                            <div class="result-title">Satışta Hesaba Geçecek Toplam (Kâr Dahil)</div>
+                            <div class="result-value" id="res-plan-toplam">0.00</div>
+                            <div class="result-sub" id="res-plan-toplam-tl" style="display:none; color: var(--text-primary); margin-top: 5px; font-weight: 500;">TL: 0.00 ₺</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 4: Komisyon & Başa Baş -->
+            <section id="tab-komisyon" class="tab-pane">
+                <!-- ... unchanged content ... -->
+                <div class="grid-layout">
+                    <div class="input-panel card">
+                        <h2>Komisyon ve Başa Baş (Break-even) Noktası</h2>
+                        
+                        <div class="market-selector mb-20">
+                            <button class="market-btn active" data-market="bist">BIST</button>
+                            <button class="market-btn" data-market="nasdaq">NASDAQ (Midas)</button>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Alış Fiyatı</label>
+                                <input type="number" id="bb-alis-fiyat" min="0" step="any" placeholder="0.00">
+                            </div>
+                            <div class="form-group">
+                                <label>Miktar (Lot - Tam Sayı)</label>
+                                <input type="number" id="bb-lot" min="1" step="1" placeholder="0">
+                            </div>
+                        </div>
+
+                        <div id="bist-fields" class="mt-15 highlight-box">
+                            <div class="form-group">
+                                <label>Komisyon Oranı (Binde)</label>
+                                <input type="number" id="bb-bist-komisyon" min="0" step="any" placeholder="Örn: 2">
+                            </div>
+                            <small class="hint">Alış ve satışta aynı oranın kesildiği varsayılır.</small>
+                        </div>
+
+                        <div id="nasdaq-fields" class="mt-15 highlight-box" style="display: none;">
+                            <div class="alert-info">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                                <span>Midas sabit 1.5$ komisyon alır. <br/>(1$ altı ve 300 adet üzeri hisseler için otomatik ilave +0.005$ hesaplanır)</span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="result-panel">
+                        <div class="result-card primary-result">
+                            <div class="result-title">Zarar Etmemek İçin Satılması Gereken Fiyat (Başa Baş)</div>
+                            <div class="result-value" id="res-bb-fiyat">0.00</div>
+                        </div>
+                        <div class="result-card danger-card">
+                            <div class="result-title">Ödenen Toplam Komisyon (Alış + Satış)</div>
+                            <div class="result-value danger" id="res-bb-komisyon-tutar">0.00</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+        </main>
+    </div>
+    <!-- Core & Utilities -->
+    <script src="js/utils.js"></script>
+    <script src="js/ui.js"></script>
+    
+    <!-- Modules -->
+    <script src="js/modules/averageCost.js"></script>
+    <script src="js/modules/simulator.js"></script>
+    <script src="js/modules/tradePlanner.js"></script>
+    <script src="js/modules/breakEven.js"></script>
+    
+    <!-- App Initializer -->
+    <script src="js/app.js"></script>
+</body>
+</html>
