@@ -2,6 +2,17 @@ function initTabs() {
     const tabBtns = document.querySelectorAll('.tab-btn');
     const tabPanes = document.querySelectorAll('.tab-pane');
 
+    // Her sekme için son odaklanılan input'u hafızada tut
+    const lastFocusedInputs = {};
+    document.addEventListener('focusin', (e) => {
+        if (e.target.tagName === 'INPUT') {
+            const pane = e.target.closest('.tab-pane');
+            if (pane) {
+                lastFocusedInputs[pane.id] = e.target;
+            }
+        }
+    });
+
     tabBtns.forEach(btn => {
         btn.addEventListener('click', () => {
             tabBtns.forEach(b => b.classList.remove('active'));
@@ -11,9 +22,10 @@ function initTabs() {
             const targetId = btn.getAttribute('data-target');
             document.getElementById(targetId).classList.add('active');
             
-            const firstInput = document.querySelector(`#${targetId} input`);
-            if (firstInput) {
-                setTimeout(() => firstInput.focus(), 50);
+            // Hafızadaki son inputa, yoksa sekmedeki ilk inputa odaklan
+            const inputToFocus = lastFocusedInputs[targetId] || document.querySelector(`#${targetId} input`);
+            if (inputToFocus) {
+                setTimeout(() => inputToFocus.focus(), 50);
             }
         });
     });
