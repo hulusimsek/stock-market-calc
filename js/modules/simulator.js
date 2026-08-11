@@ -33,7 +33,7 @@ function initSimulator() {
             else if(karZarar < 0) resEl.classList.add('danger');
             
         } else {
-            document.getElementById('res-sim-kar-zarar').textContent = "0.00";
+            document.getElementById('res-sim-kar-zarar').textContent = "0,00";
             document.getElementById('res-sim-kar-yuzde').textContent = "-";
             document.getElementById('res-sim-kar-zarar').className = "result-value";
         }
@@ -75,3 +75,4 @@ function initSimulator() {
     elMaliyet.addEventListener('input', onBaseChange);
     elLot.addEventListener('input', onBaseChange);
 }
+

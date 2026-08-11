@@ -97,10 +97,10 @@ function initPlanlayici() {
             sellComm = satis * lot * oran;
         } else if (currentMarket === 'nasdaq') {
             buyComm = 1.5;
-            if (alis < 1.0 && lot > 300) buyComm += (lot - 300) * 0.005;
+            if (alis < 1.0 && lot > 300) buyComm += (lot - 300) * 0,005;
 
             sellComm = 1.5;
-            if (satis < 1.0 && lot > 300) sellComm += (lot - 300) * 0.005;
+            if (satis < 1.0 && lot > 300) sellComm += (lot - 300) * 0,005;
         }
         return { buyComm, sellComm };
     };
@@ -141,16 +141,16 @@ function initPlanlayici() {
             document.getElementById('res-plan-kullanilan-tl').textContent = `TL Karşılığı: ${formatCurrency(tlCost)} ₺`;
         }
 
+        if (currentMarket !== 'yok') {
+            document.getElementById('card-plan-komisyon').style.display = 'block';
+            const displayComm = comms.buyComm + (satisFiyati > 0 && lot > 0 ? comms.sellComm : 0);
+            document.getElementById('res-plan-komisyon-tutar').textContent = formatCurrency(displayComm) + (currentMarket === 'nasdaq' ? ' $' : '');
+        } else {
+            document.getElementById('card-plan-komisyon').style.display = 'none';
+        }
+
         if (satisFiyati > 0 && lot > 0) {
             const totalComm = comms.buyComm + comms.sellComm;
-            
-            if (currentMarket !== 'yok') {
-                document.getElementById('card-plan-komisyon').style.display = 'block';
-                document.getElementById('res-plan-komisyon-tutar').textContent = formatCurrency(totalComm) + (currentMarket === 'nasdaq' ? ' $' : '');
-            } else {
-                document.getElementById('card-plan-komisyon').style.display = 'none';
-            }
-
             const toplamSatis = satisFiyati * lot;
             const netSatisRevenue = toplamSatis - comms.sellComm;
             
@@ -185,14 +185,13 @@ function initPlanlayici() {
             
             document.getElementById('res-plan-toplam').textContent = formatCurrency(finalRevenue) + (currentMarket === 'nasdaq' ? ' $' : '');
         } else {
-            document.getElementById('card-plan-komisyon').style.display = 'none';
-            document.getElementById('res-plan-kar').textContent = "0.00";
+            document.getElementById('res-plan-kar').textContent = "0,00";
             document.getElementById('res-plan-kar').className = 'result-value';
-            document.getElementById('res-plan-toplam').textContent = "0.00";
+            document.getElementById('res-plan-toplam').textContent = "0,00";
             if (currentMarket === 'nasdaq') {
-                document.getElementById('res-plan-kar-tl').textContent = `TL Net Kâr: 0.00 ₺`;
-                document.getElementById('res-plan-toplam-tl').textContent = `TL Toplam Dönüş: 0.00 ₺`;
-                document.getElementById('res-plan-vergi-tutar').textContent = `0.00 ₺`;
+                document.getElementById('res-plan-kar-tl').textContent = `TL Net Kâr: 0,00 ₺`;
+                document.getElementById('res-plan-toplam-tl').textContent = `TL Toplam Dönüş: 0,00 ₺`;
+                document.getElementById('res-plan-vergi-tutar').textContent = `0,00 ₺`;
             }
         }
     };
@@ -210,13 +209,13 @@ function initPlanlayici() {
             
         } else if (currentMarket === 'nasdaq') {
             buyComm = 1.5;
-            if (alis < 1.0 && lot > 300) buyComm += (lot - 300) * 0.005;
+            if (alis < 1.0 && lot > 300) buyComm += (lot - 300) * 0,005;
             
             let sellComm = 1.5;
             let satis = (targetProfitNative + (alis * lot) + buyComm + sellComm) / lot;
             
             if (satis < 1.0 && lot > 300) {
-                sellComm = 1.5 + (lot - 300) * 0.005;
+                sellComm = 1.5 + (lot - 300) * 0,005;
                 satis = (targetProfitNative + (alis * lot) + buyComm + sellComm) / lot;
             }
             return satis;
@@ -270,7 +269,7 @@ function initPlanlayici() {
                 buyComm = alis * lot * (binde / 1000);
             } else if (currentMarket === 'nasdaq') {
                 buyComm = 1.5;
-                if (alis < 1.0 && lot > 300) buyComm += (lot - 300) * 0.005;
+                if (alis < 1.0 && lot > 300) buyComm += (lot - 300) * 0,005;
             }
 
             const netBuyCost = (alis * lot) + buyComm;
@@ -323,3 +322,4 @@ function initPlanlayici() {
     elKur.addEventListener('input', onBaseChange);
     elVergi.addEventListener('input', onBaseChange);
 }
+

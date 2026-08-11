@@ -33,8 +33,8 @@ function initKomisyon() {
         let basaBasSatis = 0;
 
         if (alis === 0 || lot === 0) {
-            document.getElementById('res-bb-fiyat').textContent = "0.00";
-            document.getElementById('res-bb-komisyon-tutar').textContent = "0.00";
+            document.getElementById('res-bb-fiyat').textContent = "0,00";
+            document.getElementById('res-bb-komisyon-tutar').textContent = "0,00";
             return;
         }
 
@@ -52,7 +52,7 @@ function initKomisyon() {
 
         } else if (currentMarket === 'nasdaq') {
             let alisKomisyonu = 1.5;
-            if (alis < 1.0 && lot > 300) alisKomisyonu += (lot - 300) * 0.005;
+            if (alis < 1.0 && lot > 300) alisKomisyonu += (lot - 300) * 0,005;
 
             let satisKomisyonu = alisKomisyonu; 
             
@@ -63,7 +63,7 @@ function initKomisyon() {
                 basaBasSatis = ( (alis * lot) + alisKomisyonu + satisKomisyonu ) / lot;
             } 
             else if (basaBasSatis < 1.0 && lot > 300 && alis >= 1.0) {
-                satisKomisyonu = 1.5 + ((lot - 300) * 0.005);
+                satisKomisyonu = 1.5 + ((lot - 300) * 0,005);
                 basaBasSatis = ( (alis * lot) + alisKomisyonu + satisKomisyonu ) / lot;
             }
             totalKomisyon = alisKomisyonu + satisKomisyonu;
@@ -75,3 +75,4 @@ function initKomisyon() {
 
     [elAlis, elLot, elBistKomisyon].forEach(el => el.addEventListener('input', calculate));
 }
+

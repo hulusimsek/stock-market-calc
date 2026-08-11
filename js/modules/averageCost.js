@@ -18,7 +18,7 @@ function initOrtalamaMaliyet() {
                 totalCost += rowTutar;
                 if (elTutar) elTutar.value = formatCurrency(rowTutar);
             } else {
-                if (elTutar) elTutar.value = "0.00";
+                if (elTutar) elTutar.value = "0,00";
             }
         });
 
@@ -52,11 +52,11 @@ function initOrtalamaMaliyet() {
             </div>
             <div class="form-group">
                 <label>Fiyat</label>
-                <input type="number" class="input-fiyat" min="0" step="any" placeholder="Örn: 45.50">
+                <input type="number" class="input-fiyat" min="0" step="any" placeholder="Örn: 45,50">
             </div>
             <div class="form-group">
                 <label>Alış Tutarı</label>
-                <input type="text" class="input-tutar" readonly placeholder="0.00" style="background: transparent; border: 1px dashed var(--border); color: var(--text-secondary); cursor: default;">
+                <input type="text" class="input-tutar" readonly placeholder="0,00" style="background: transparent; border: 1px dashed var(--border); color: var(--text-secondary); cursor: default;">
             </div>
             <button class="btn-icon btn-remove" tabindex="-1" title="Sil" style="margin-bottom: 6px;">×</button>
         `;
@@ -67,3 +67,4 @@ function initOrtalamaMaliyet() {
 
     attachListeners(document.querySelector('.alim-satir'));
 }
+

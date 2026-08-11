@@ -60,11 +60,11 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Fiyat</label>
-                                    <input type="number" class="input-fiyat" min="0" step="any" placeholder="Örn: 45.50">
+                                    <input type="number" class="input-fiyat" min="0" step="any" placeholder="Örn: 45,50">
                                 </div>
                                 <div class="form-group">
                                     <label>Alış Tutarı</label>
-                                    <input type="text" class="input-tutar" readonly placeholder="0.00" style="background: transparent; border: 1px dashed var(--border); color: var(--text-secondary); cursor: default;">
+                                    <input type="text" class="input-tutar" readonly placeholder="0,00" style="background: transparent; border: 1px dashed var(--border); color: var(--text-secondary); cursor: default;">
                                 </div>
                                 <button class="btn-icon btn-remove" tabindex="-1" title="Sil" style="margin-bottom: 6px;">×</button>
                             </div>
@@ -77,7 +77,7 @@
                     <div class="result-panel">
                         <div class="result-card primary-result">
                             <div class="result-title">Ortalama Maliyet</div>
-                            <div class="result-value" id="res-ortalama-fiyat">0.00</div>
+                            <div class="result-value" id="res-ortalama-fiyat">0,00</div>
                         </div>
                         <div class="result-card">
                             <div class="result-title">Toplam Lot</div>
@@ -85,7 +85,7 @@
                         </div>
                         <div class="result-card">
                             <div class="result-title">Toplam Yatırım Tutarı</div>
-                            <div class="result-value" id="res-toplam-tutar">0.00</div>
+                            <div class="result-value" id="res-toplam-tutar">0,00</div>
                         </div>
                     </div>
                 </div>
@@ -128,7 +128,7 @@
                         <div class="form-row">
                             <div class="form-group">
                                 <label>Sizdeki Maliyet Fiyatı</label>
-                                <input type="number" id="sim-maliyet" min="0" step="any" placeholder="0.00">
+                                <input type="number" id="sim-maliyet" min="0" step="any" placeholder="0,00">
                             </div>
                             <div class="form-group">
                                 <label>Miktar (Lot - Tam Sayı)</label>
@@ -140,8 +140,8 @@
                     <div class="result-panel">
                         <div class="result-card primary-result">
                             <div class="result-title">Hedef Fiyattaki Anlık Kar/Zarar Durumu</div>
-                            <div class="result-value" id="res-sim-kar-zarar">0.00</div>
-                            <div class="result-sub" id="res-sim-kar-yuzde">%0.00</div>
+                            <div class="result-value" id="res-sim-kar-zarar">0,00</div>
+                            <div class="result-sub" id="res-sim-kar-yuzde">%0,00</div>
                         </div>
                     </div>
                 </div>
@@ -161,7 +161,7 @@
                         <div class="form-row">
                             <div class="form-group">
                                 <label>Alış Fiyatı</label>
-                                <input type="number" id="plan-alis" min="0" step="any" placeholder="0.00">
+                                <input type="number" id="plan-alis" min="0" step="any" placeholder="0,00">
                             </div>
                             <div class="form-group">
                                 <label id="plan-sermaye-label">Tutar / Sermaye</label>
@@ -187,14 +187,14 @@
                         <!-- NASDAQ Alanı -->
                         <div id="plan-nasdaq-fields" class="mt-15 highlight-box" style="display: none; padding: 15px;">
                             <div class="alert-info mb-20" style="margin-top:0;">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12,01" y2="8"></line></svg>
                                 <span>Hedef kar hesaplamaları vergisiz NET DOLAR üzerinden yapılır. Vergi kesintisi bilgi amaçlı TL sonuçlarına yansıtılır.</span>
                             </div>
                             
                             <div class="form-row">
                                 <div class="form-group">
                                     <label>Dolar Kuru (USD/TRY)</label>
-                                    <input type="number" id="plan-nasdaq-kur" min="0" step="any" placeholder="Örn: 35.50">
+                                    <input type="number" id="plan-nasdaq-kur" min="0" step="any" placeholder="Örn: 35,50">
                                 </div>
                             </div>
                             
@@ -209,11 +209,11 @@
                         <div class="form-row highlight-box">
                             <div class="form-group">
                                 <label>Satış Fiyatı</label>
-                                <input type="number" id="plan-satis" min="0" step="any" placeholder="0.00">
+                                <input type="number" id="plan-satis" min="0" step="any" placeholder="0,00">
                             </div>
                             <div class="form-group profit-group">
                                 <label>Hedef Net Kar (%)</label>
-                                <input type="number" id="plan-kar-yuzde" step="any" placeholder="Örn: 2.0" class="color-dynamic">
+                                <input type="number" id="plan-kar-yuzde" step="any" placeholder="Örn: 2,0" class="color-dynamic">
                             </div>
                         </div>
                         <div class="form-row highlight-box" style="margin-top: 15px;">
@@ -232,31 +232,31 @@
                         </div>
                         <div class="result-card" id="card-plan-kullanilan">
                             <div class="result-title">Kullanılan Tutar (Net Alış)</div>
-                            <div class="result-value" id="res-plan-kullanilan">0.00</div>
-                            <div class="result-sub" id="res-plan-kullanilan-tl" style="display:none; color: var(--text-primary); margin-top: 5px; font-weight: 500;">TL: 0.00 ₺</div>
-                            <div class="result-sub" id="res-plan-artan-container" style="margin-top: 5px;">Artan Bakiye: <span id="res-plan-artan">0.00</span></div>
+                            <div class="result-value" id="res-plan-kullanilan">0,00</div>
+                            <div class="result-sub" id="res-plan-kullanilan-tl" style="display:none; color: var(--text-primary); margin-top: 5px; font-weight: 500;">TL: 0,00 ₺</div>
+                            <div class="result-sub" id="res-plan-artan-container" style="margin-top: 5px;">Artan Bakiye: <span id="res-plan-artan">0,00</span></div>
                         </div>
                         
                         <div class="result-card danger-card" id="card-plan-komisyon" style="display: none;">
                             <div class="result-title">Ödenen Komisyon (Alış + Satış)</div>
-                            <div class="result-value danger" id="res-plan-komisyon-tutar">0.00</div>
+                            <div class="result-value danger" id="res-plan-komisyon-tutar">0,00</div>
                         </div>
                         
                         <div class="result-card danger-card" id="card-plan-vergi" style="display: none; border-color: rgba(246, 70, 93, 0.4);">
                             <div class="result-title">Ödenecek Gelir Vergisi (Sadece Kâr Üzerinden)</div>
-                            <div class="result-value danger" id="res-plan-vergi-tutar">0.00 ₺</div>
+                            <div class="result-value danger" id="res-plan-vergi-tutar">0,00 ₺</div>
                         </div>
                         
                         <div class="result-card primary-result">
                             <div class="result-title">Net Kâr / Zarar</div>
-                            <div class="result-value" id="res-plan-kar">0.00</div>
-                            <div class="result-sub" id="res-plan-kar-tl" style="display:none; color: var(--text-primary); margin-top: 5px; font-weight: 500; font-size: 16px;">TL: 0.00 ₺</div>
+                            <div class="result-value" id="res-plan-kar">0,00</div>
+                            <div class="result-sub" id="res-plan-kar-tl" style="display:none; color: var(--text-primary); margin-top: 5px; font-weight: 500; font-size: 16px;">TL: 0,00 ₺</div>
                         </div>
                         
                         <div class="result-card">
                             <div class="result-title">Satışta Hesaba Geçecek Toplam (Kâr Dahil)</div>
-                            <div class="result-value" id="res-plan-toplam">0.00</div>
-                            <div class="result-sub" id="res-plan-toplam-tl" style="display:none; color: var(--text-primary); margin-top: 5px; font-weight: 500;">TL: 0.00 ₺</div>
+                            <div class="result-value" id="res-plan-toplam">0,00</div>
+                            <div class="result-sub" id="res-plan-toplam-tl" style="display:none; color: var(--text-primary); margin-top: 5px; font-weight: 500;">TL: 0,00 ₺</div>
                         </div>
                     </div>
                 </div>
@@ -277,7 +277,7 @@
                         <div class="form-row">
                             <div class="form-group">
                                 <label>Alış Fiyatı</label>
-                                <input type="number" id="bb-alis-fiyat" min="0" step="any" placeholder="0.00">
+                                <input type="number" id="bb-alis-fiyat" min="0" step="any" placeholder="0,00">
                             </div>
                             <div class="form-group">
                                 <label>Miktar (Lot - Tam Sayı)</label>
@@ -295,8 +295,8 @@
 
                         <div id="nasdaq-fields" class="mt-15 highlight-box" style="display: none;">
                             <div class="alert-info">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
-                                <span>Midas sabit 1.5$ komisyon alır. <br/>(1$ altı ve 300 adet üzeri hisseler için otomatik ilave +0.005$ hesaplanır)</span>
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12,01" y2="8"></line></svg>
+                                <span>Midas sabit 1.5$ komisyon alır. <br/>(1$ altı ve 300 adet üzeri hisseler için otomatik ilave +0,005$ hesaplanır)</span>
                             </div>
                         </div>
 
@@ -305,11 +305,11 @@
                     <div class="result-panel">
                         <div class="result-card primary-result">
                             <div class="result-title">Zarar Etmemek İçin Satılması Gereken Fiyat (Başa Baş)</div>
-                            <div class="result-value" id="res-bb-fiyat">0.00</div>
+                            <div class="result-value" id="res-bb-fiyat">0,00</div>
                         </div>
                         <div class="result-card danger-card">
                             <div class="result-title">Ödenen Toplam Komisyon (Alış + Satış)</div>
-                            <div class="result-value danger" id="res-bb-komisyon-tutar">0.00</div>
+                            <div class="result-value danger" id="res-bb-komisyon-tutar">0,00</div>
                         </div>
                     </div>
                 </div>
@@ -331,3 +331,4 @@
     <script src="js/app.js"></script>
 </body>
 </html>
+
