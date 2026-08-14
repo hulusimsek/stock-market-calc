@@ -1,5 +1,5 @@
 const formatCurrency = (value) => {
-    return new Intl.NumberFormat('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(value);
+    return new Intl.NumberFormat('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 5 }).format(value);
 };
 
 const applyDynamicColor = (input) => {

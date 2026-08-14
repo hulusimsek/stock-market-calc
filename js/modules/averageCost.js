@@ -1,11 +1,36 @@
 function initOrtalamaMaliyet() {
     const btnAdd = document.getElementById('btn-add-alim');
     const listContainer = document.getElementById('alim-listesi');
+    
+    let currentMarket = 'yok';
+    const marketBtns = document.querySelectorAll('#avg-market-selector .market-btn');
+    const bistFields = document.getElementById('avg-bist-fields');
+    const elBistKomisyon = document.getElementById('avg-bist-komisyon');
 
-    const calculate = () => {
+    marketBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            marketBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            currentMarket = btn.getAttribute('data-market');
+            
+            if (currentMarket === 'bist') {
+                bistFields.style.display = 'block';
+            } else {
+                bistFields.style.display = 'none';
+            }
+            calculate();
+        });
+    });
+
+    if (elBistKomisyon) {
+        elBistKomisyon.addEventListener('input', calculate);
+    }
+
+    function calculate() {
         const rows = document.querySelectorAll('.alim-satir');
         let totalLot = 0;
         let totalCost = 0;
+        let totalComm = 0;
 
         rows.forEach(row => {
             let miktar = Math.floor(parseFloat(row.querySelector('.input-miktar').value) || 0);
@@ -14,18 +39,39 @@ function initOrtalamaMaliyet() {
 
             if (miktar > 0 && fiyat > 0) {
                 const rowTutar = miktar * fiyat;
+                let rowComm = 0;
+
+                if (currentMarket === 'bist') {
+                    const binde = parseFloat(elBistKomisyon.value) || 0;
+                    rowComm = rowTutar * (binde / 1000);
+                } else if (currentMarket === 'nasdaq') {
+                    rowComm = 1.5;
+                    if (fiyat < 1.0 && miktar > 300) {
+                        rowComm += (miktar - 300) * 0.005;
+                    }
+                }
+
+                totalComm += rowComm;
                 totalLot += miktar;
-                totalCost += rowTutar;
+                totalCost += (rowTutar + rowComm);
+
                 if (elTutar) elTutar.value = formatCurrency(rowTutar);
             } else {
                 if (elTutar) elTutar.value = "0,00";
             }
         });
 
+        if (currentMarket !== 'yok') {
+            document.getElementById('card-avg-komisyon').style.display = 'block';
+            document.getElementById('res-avg-komisyon-tutar').textContent = formatCurrency(totalComm) + (currentMarket === 'nasdaq' ? ' $' : '');
+        } else {
+            document.getElementById('card-avg-komisyon').style.display = 'none';
+        }
+
         const avgPrice = totalLot > 0 ? (totalCost / totalLot) : 0;
-        document.getElementById('res-ortalama-fiyat').textContent = formatCurrency(avgPrice);
+        document.getElementById('res-ortalama-fiyat').textContent = formatCurrency(avgPrice) + (currentMarket === 'nasdaq' ? ' $' : '');
         document.getElementById('res-toplam-lot').textContent = formatCurrency(totalLot);
-        document.getElementById('res-toplam-tutar').textContent = formatCurrency(totalCost);
+        document.getElementById('res-toplam-tutar').textContent = formatCurrency(totalCost) + (currentMarket === 'nasdaq' ? ' $' : '');
     };
 
     const attachListeners = (row) => {
@@ -67,4 +113,3 @@ function initOrtalamaMaliyet() {
 
     attachListeners(document.querySelector('.alim-satir'));
 }
-

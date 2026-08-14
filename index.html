@@ -52,6 +52,22 @@
                 <div class="grid-layout">
                     <div class="input-panel card">
                         <h2>Alım İşlemleri</h2>
+                        
+                        <!-- Komisyon Seçici -->
+                        <div class="market-selector mb-20" id="avg-market-selector">
+                            <button class="market-btn active" data-market="yok">Komisyon Yok</button>
+                            <button class="market-btn" data-market="bist">BIST</button>
+                            <button class="market-btn" data-market="nasdaq">NASDAQ</button>
+                        </div>
+
+                        <!-- BIST Alanı -->
+                        <div id="avg-bist-fields" class="mb-20 highlight-box" style="display: none; padding: 10px;">
+                            <div class="form-group">
+                                <label>BIST Komisyonu (Binde)</label>
+                                <input type="number" id="avg-bist-komisyon" min="0" step="any" placeholder="Örn: 2">
+                            </div>
+                        </div>
+
                         <div id="alim-listesi" class="alim-listesi">
                             <div class="alim-satir">
                                 <div class="form-group">
@@ -82,6 +98,10 @@
                         <div class="result-card">
                             <div class="result-title">Toplam Lot</div>
                             <div class="result-value" id="res-toplam-lot">0</div>
+                        </div>
+                        <div class="result-card danger-card" id="card-avg-komisyon" style="display: none;">
+                            <div class="result-title">Ödenen Toplam Komisyon</div>
+                            <div class="result-value danger" id="res-avg-komisyon-tutar">0,00</div>
                         </div>
                         <div class="result-card">
                             <div class="result-title">Toplam Yatırım Tutarı</div>
@@ -273,6 +293,14 @@
                             <button class="market-btn active" data-market="bist">BIST</button>
                             <button class="market-btn" data-market="nasdaq">NASDAQ (Midas)</button>
                         </div>
+                        
+                        <div class="form-group mb-20">
+                            <label>Hesaplanacak Komisyonlar</label>
+                            <div class="market-selector" id="komisyon-yon-selector">
+                                <button class="market-btn active" id="btn-komisyon-alis" data-yon="alis">✓ Alış Komisyonu</button>
+                                <button class="market-btn active" id="btn-komisyon-satis" data-yon="satis">✓ Satış Komisyonu</button>
+                            </div>
+                        </div>
 
                         <div class="form-row">
                             <div class="form-group">
@@ -304,17 +332,23 @@
 
                     <div class="result-panel">
                         <div class="result-card primary-result">
-                            <div class="result-title">Zarar Etmemek İçin Satılması Gereken Fiyat (Başa Baş)</div>
+                            <div class="result-title">Zararsız Çıkış (Başa Baş) Hedef Fiyatı</div>
                             <div class="result-value" id="res-bb-fiyat">0,00</div>
                         </div>
+                        <div class="result-card">
+                            <div class="result-title">Net Alış Tutarı (Maliyet)</div>
+                            <div class="result-value" id="res-bb-net-alis">0,00</div>
+                        </div>
+                        <div class="result-card">
+                            <div class="result-title">Net Satış Tutarı (Ele Geçecek)</div>
+                            <div class="result-value" id="res-bb-net-satis">0,00</div>
+                        </div>
                         <div class="result-card danger-card">
-                            <div class="result-title">Ödenen Toplam Komisyon (Alış + Satış)</div>
+                            <div class="result-title" id="res-bb-komisyon-title">Ödenen Toplam Komisyon (Alış + Satış)</div>
                             <div class="result-value danger" id="res-bb-komisyon-tutar">0,00</div>
                         </div>
                     </div>
                 </div>
-            </section>
-            
         </main>
     </div>
     <!-- Core & Utilities -->
