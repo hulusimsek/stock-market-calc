@@ -42,6 +42,10 @@
                 <span>4. Komisyon & Başa Baş</span>
                 <small>Alt+4</small>
             </button>
+            <button class="tab-btn" data-target="tab-saat" accesskey="5">
+                <span>5. Saat Çevirici</span>
+                <small>Alt+5</small>
+            </button>
         </nav>
 
         <!-- Main Content Area -->
@@ -349,6 +353,54 @@
                         </div>
                     </div>
                 </div>
+            </section>
+            
+            <!-- TAB 5: Saat Çevirici -->
+            <section id="tab-saat" class="tab-pane">
+                <div class="grid-layout">
+                    <div class="input-panel card">
+                        <h2>Saat Dilimi Çevirici (Türkiye - ABD)</h2>
+                        
+                        <div class="alert-info info-bg mb-20" id="tz-badge" style="margin-top: 15px;">
+                            ❄️ Amerika şu an Kış Saatinde (Fark: 8 Saat)
+                        </div>
+
+                        <div class="form-group mb-20">
+                            <label>Dönüşüm Yönü</label>
+                            <button class="btn btn-secondary" id="tz-yon-btn" style="display: flex; align-items: center; justify-content: center; gap: 10px; font-weight: bold; width: 100%;">
+                                Türkiye (BIST) <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg> ABD (NASDAQ)
+                            </button>
+                        </div>
+                        
+                        <div class="divider"></div>
+                        
+                        <h3 class="section-subtitle" id="tz-source-label" style="margin-top: 15px;">Türkiye Tarih ve Saati</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Tarih</label>
+                                <input type="date" id="tz-date">
+                            </div>
+                            <div class="form-group">
+                                <label>Saat</label>
+                                <input type="time" id="tz-time">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="result-panel">
+                        <div class="result-card primary-result">
+                            <div class="result-title" id="tz-target-title">Amerika (New York) Karşılığı</div>
+                            <div class="result-value" id="res-tz-time" style="font-size: 42px;">00:00</div>
+                            <div class="result-sub" id="res-tz-date" style="font-size: 16px; margin-top: 10px; color: var(--text-primary);">Tarih</div>
+                        </div>
+                        
+                        <div class="result-card">
+                            <div class="result-title">NASDAQ Piyasa Durumu (O Saatte)</div>
+                            <div class="result-value" id="res-tz-status" style="font-size: 18px;">Yükleniyor...</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
         </main>
     </div>
     <!-- Core & Utilities -->
@@ -360,6 +412,7 @@
     <script src="js/modules/simulator.js"></script>
     <script src="js/modules/tradePlanner.js"></script>
     <script src="js/modules/breakEven.js"></script>
+    <script src="js/modules/timezone.js"></script>
     
     <!-- App Initializer -->
     <script src="js/app.js"></script>

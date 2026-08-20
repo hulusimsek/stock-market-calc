@@ -33,7 +33,7 @@ function initTabs() {
 
 function initKeyboardShortcuts() {
     document.addEventListener('keydown', (e) => {
-        if (e.altKey && ['1', '2', '3', '4'].includes(e.key)) {
+        if (e.altKey && ['1', '2', '3', '4', '5'].includes(e.key)) {
             e.preventDefault();
             const btns = document.querySelectorAll('.tab-btn');
             const targetBtn = btns[parseInt(e.key) - 1];

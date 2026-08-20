@@ -9,5 +9,6 @@ document.addEventListener('DOMContentLoaded', () => {
     initSimulator();
     initPlanlayici();
     initKomisyon();
+    initTimezone();
     initKeyboardShortcuts();
 });
