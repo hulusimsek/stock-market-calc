@@ -97,10 +97,10 @@ function initPlanlayici() {
             sellComm = satis * lot * oran;
         } else if (currentMarket === 'nasdaq') {
             buyComm = 1.5;
-            if (alis < 1.0 && lot > 300) buyComm += (lot - 300) * 0,005;
+            if (alis < 1.0 && lot > 300) buyComm += (lot - 300) * 0.005;
 
             sellComm = 1.5;
-            if (satis < 1.0 && lot > 300) sellComm += (lot - 300) * 0,005;
+            if (satis < 1.0 && lot > 300) sellComm += (lot - 300) * 0.005;
         }
         return { buyComm, sellComm };
     };
@@ -209,13 +209,13 @@ function initPlanlayici() {
             
         } else if (currentMarket === 'nasdaq') {
             buyComm = 1.5;
-            if (alis < 1.0 && lot > 300) buyComm += (lot - 300) * 0,005;
+            if (alis < 1.0 && lot > 300) buyComm += (lot - 300) * 0.005;
             
             let sellComm = 1.5;
             let satis = (targetProfitNative + (alis * lot) + buyComm + sellComm) / lot;
             
             if (satis < 1.0 && lot > 300) {
-                sellComm = 1.5 + (lot - 300) * 0,005;
+                sellComm = 1.5 + (lot - 300) * 0.005;
                 satis = (targetProfitNative + (alis * lot) + buyComm + sellComm) / lot;
             }
             return satis;
@@ -269,7 +269,7 @@ function initPlanlayici() {
                 buyComm = alis * lot * (binde / 1000);
             } else if (currentMarket === 'nasdaq') {
                 buyComm = 1.5;
-                if (alis < 1.0 && lot > 300) buyComm += (lot - 300) * 0,005;
+                if (alis < 1.0 && lot > 300) buyComm += (lot - 300) * 0.005;
             }
 
             const netBuyCost = (alis * lot) + buyComm;
