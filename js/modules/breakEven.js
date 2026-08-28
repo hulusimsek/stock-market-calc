@@ -119,7 +119,7 @@ function initKomisyon() {
             else titleEl.textContent = "Ödenen Komisyon (Seçilmedi)";
         }
 
-        document.getElementById('res-bb-fiyat').textContent = formatCurrency(basaBasSatis) + (currentMarket === 'nasdaq' ? ' $' : '');
+        document.getElementById('res-bb-fiyat').textContent = formatPrice(basaBasSatis) + (currentMarket === 'nasdaq' ? ' $' : '');
         document.getElementById('res-bb-komisyon-tutar').textContent = formatCurrency(totalKomisyon) + (currentMarket === 'nasdaq' ? ' $' : '');
         
         if (document.getElementById('res-bb-net-alis')) {

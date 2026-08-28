@@ -69,7 +69,7 @@ function initOrtalamaMaliyet() {
         }
 
         const avgPrice = totalLot > 0 ? (totalCost / totalLot) : 0;
-        document.getElementById('res-ortalama-fiyat').textContent = formatCurrency(avgPrice) + (currentMarket === 'nasdaq' ? ' $' : '');
+        document.getElementById('res-ortalama-fiyat').textContent = formatPrice(avgPrice) + (currentMarket === 'nasdaq' ? ' $' : '');
         document.getElementById('res-toplam-lot').textContent = formatCurrency(totalLot);
         document.getElementById('res-toplam-tutar').textContent = formatCurrency(totalCost) + (currentMarket === 'nasdaq' ? ' $' : '');
     };
